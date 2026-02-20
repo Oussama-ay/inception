@@ -32,7 +32,7 @@ MariaDB is a relational database that stores data in tables (rows and columns). 
 | **Server** | The MariaDB process (`mysqld`) | Runs as PID 1 in container |
 | **Database** | A collection of tables | `wordpress` |
 | **Table** | Rows and columns | `wp_users` |
-| **User** | An account that can connect | `nova@%` |
+| **User** | An account that can connect | `oayyoub@%` |
 | **Root** | Super admin account | `root@localhost` |
 | **Port** | Network port it listens on | `3306` |
 
@@ -92,7 +92,7 @@ collation-server        = utf8mb4_general_ci
 
 | Setting | What it does | Why |
 |---------|-------------|-----|
-| `datadir` | Where database files are stored | Mapped to volume `/home/nova/data/mariadb` |
+| `datadir` | Where database files are stored | Mapped to volume `/home/oayyoub/data/mariadb` |
 | `socket` | Unix socket file for local connections | Used by `mysql` CLI tool |
 | `bind-address = 0.0.0.0` | Accept connections from any IP | Without this, WordPress can't connect |
 | `port = 3306` | Listen on port 3306 | Standard MySQL/MariaDB port |
@@ -159,7 +159,7 @@ Container starts
     │     └── mysqld --bootstrap → runs SQL:
     │           - Set root password
     │           - Create "wordpress" database
-    │           - Create "nova" user with password
+    │           - Create "oayyoub" user with password
     │           - Grant all permissions
     │
     ├── NO (database already exists from volume)
@@ -180,12 +180,12 @@ ALTER USER 'root'@'localhost' IDENTIFIED BY 'root_pass123';
 -- Create the wordpress database
 CREATE DATABASE IF NOT EXISTS wordpress;
 
--- Create user "nova" that can connect from ANY host (%)
+-- Create user "oayyoub" that can connect from ANY host (%)
 -- '%' is needed because WordPress connects from a different container
-CREATE USER IF NOT EXISTS 'nova'@'%' IDENTIFIED BY 'db_pass123';
+CREATE USER IF NOT EXISTS 'oayyoub'@'%' IDENTIFIED BY 'db_pass123';
 
--- Give "nova" full access to wordpress database only
-GRANT ALL PRIVILEGES ON wordpress.* TO 'nova'@'%';
+-- Give "oayyoub" full access to wordpress database only
+GRANT ALL PRIVILEGES ON wordpress.* TO 'oayyoub'@'%';
 
 -- Apply permission changes
 FLUSH PRIVILEGES;
@@ -196,7 +196,7 @@ FLUSH PRIVILEGES;
 | User | Host | Can access | Password source |
 |------|------|-----------|-----------------|
 | `root` | `localhost` | Everything | `secrets/db_root_password.txt` |
-| `nova` | `%` (anywhere) | Only `wordpress` database | `secrets/db_password.txt` |
+| `oayyoub` | `%` (anywhere) | Only `wordpress` database | `secrets/db_password.txt` |
 
 ---
 
@@ -219,7 +219,7 @@ Replaces the bash script with `mysqld`. Makes `mysqld` PID 1 so Docker signals (
 Container: /var/lib/mysql
     │ (docker volume bind mount)
     ▼
-Host: /home/nova/data/mariadb
+Host: /home/oayyoub/data/mariadb
     ├── wordpress/          ← WordPress database files
     ├── mysql/              ← System database
     ├── ibdata1             ← InnoDB data
@@ -240,8 +240,8 @@ Host: /home/nova/data/mariadb
 # Enter the container
 docker exec -it mariadb bash
 
-# Connect as nova
-mysql -u nova -p wordpress
+# Connect as oayyoub
+mysql -u oayyoub -p wordpress
 
 # Connect as root
 mysql -u root -p

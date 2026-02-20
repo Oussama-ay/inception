@@ -21,7 +21,7 @@ Internet / Browser
 │                NGINX Container                  │
 │                                                 │
 │  Listens on: 0.0.0.0:443 (SSL/TLS)             │
-│  Server name: nova.42.fr                        │
+│  Server name: oayyoub.42.fr                        │
 │                                                 │
 │  Request arrives:                               │
 │  ┌────────────────────────────────────────┐     │
@@ -86,7 +86,7 @@ server {
     listen 443 ssl;
     listen [::]:443 ssl;
 
-    server_name nova.42.fr;
+    server_name oayyoub.42.fr;
 
     ssl_certificate     /etc/nginx/ssl/nginx.crt;
     ssl_certificate_key /etc/nginx/ssl/nginx.key;
@@ -115,7 +115,7 @@ server {
 |-----------|-------------|
 | `listen 443 ssl` | Listen on port 443 with HTTPS |
 | `listen [::]:443 ssl` | Same but for IPv6 |
-| `server_name nova.42.fr` | Respond to requests for this domain |
+| `server_name oayyoub.42.fr` | Respond to requests for this domain |
 | `ssl_certificate` | Path to the SSL certificate file |
 | `ssl_certificate_key` | Path to the private key file |
 | `ssl_protocols TLSv1.2 TLSv1.3` | Only allow modern TLS versions (42 subject requirement) |
@@ -132,7 +132,7 @@ try_files $uri $uri/ /index.php?$args;
 
 This tries three things in order:
 ```
-Request: https://nova.42.fr/hello
+Request: https://oayyoub.42.fr/hello
 
 1. try $uri         → Look for file: /var/www/html/hello
                        Not found? ↓
@@ -193,7 +193,7 @@ if [ ! -f /etc/nginx/ssl/nginx.crt ]; then
         -newkey rsa:2048 \
         -keyout /etc/nginx/ssl/nginx.key \
         -out /etc/nginx/ssl/nginx.crt \
-        -subj "/C=FR/ST=IDF/L=Paris/O=42/CN=nova.42.fr"
+        -subj "/C=FR/ST=IDF/L=Paris/O=42/CN=oayyoub.42.fr"
 fi
 
 exec "$@"
@@ -294,7 +294,7 @@ docker-compose.yml:
 
 ```
 Outside world can reach:
-  ✅ https://nova.42.fr:443 → NGINX
+  ✅ https://oayyoub.42.fr:443 → NGINX
 
 Outside world CANNOT reach:
   ❌ wordpress:9000 (internal only)
@@ -306,9 +306,9 @@ Outside world CANNOT reach:
 ## Request Flow (Complete)
 
 ```
-1. User types: https://nova.42.fr
+1. User types: https://oayyoub.42.fr
 
-2. DNS: nova.42.fr → 127.0.0.1 (from /etc/hosts)
+2. DNS: oayyoub.42.fr → 127.0.0.1 (from /etc/hosts)
 
 3. Browser connects to 127.0.0.1:443
 
@@ -358,7 +358,7 @@ cat /etc/nginx/sites-available/default
 openssl x509 -in /etc/nginx/ssl/nginx.crt -text -noout
 
 # Test from host
-curl -k https://nova.42.fr
+curl -k https://oayyoub.42.fr
 
 # Check what port is listening
 ss -tlnp | grep 443

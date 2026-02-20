@@ -1,4 +1,4 @@
-*This project has been created as part of the 42 curriculum by nova.*
+*This project has been created as part of the 42 curriculum by oayyoub.*
 
 # Inception
 
@@ -86,9 +86,9 @@ All 3 containers are on the same **bridge network** called `app-network`. They f
 | `wp` | `/var/www/html` (nginx + wordpress) | WordPress files (themes, plugins, uploads) |
 | `db` | `/var/lib/mysql` (mariadb) | Database files |
 
-Both are stored on the host at `/home/nova/data/`:
-- `/home/nova/data/wordpress` → wp volume
-- `/home/nova/data/mariadb` → db volume
+Both are stored on the host at `/home/oayyoub/data/`:
+- `/home/oayyoub/data/wordpress` → wp volume
+- `/home/oayyoub/data/mariadb` → db volume
 
 Data **persists** even if containers are destroyed. Only `make fclean` deletes it.
 
@@ -99,7 +99,7 @@ Data **persists** even if containers are destroyed. Only `make fclean` deletes i
 | Type | Used for | Example |
 |------|----------|---------|
 | **Secrets** (files in `secrets/`) | Passwords, sensitive data | `db_password.txt` |
-| **Env variables** (`.env` file) | Non-sensitive config | `DOMAIN_NAME=nova.42.fr` |
+| **Env variables** (`.env` file) | Non-sensitive config | `DOMAIN_NAME=oayyoub.42.fr` |
 
 Secrets are mounted at `/run/secrets/<name>` inside containers. Scripts read them with `cat /run/secrets/db_password`.
 
@@ -136,7 +136,7 @@ make re     → fclean + all (full rebuild)
 - **wordpress_start.sh**:
   1. Fixes php-fpm to listen on port 9000
   2. Downloads WordPress via WP-CLI (first run only)
-  3. Creates admin user (`boss`) and regular user (`nova`)
+  3. Creates admin user (`boss`) and regular user (`oayyoub`)
   4. Runs `php-fpm7.4 --nodaemonize` (foreground — PID 1)
 
 ### MariaDB
@@ -154,7 +154,7 @@ make re     → fclean + all (full rebuild)
 ### Prerequisites
 - Docker and Docker Compose (v2) installed
 - Add your user to the docker group: `sudo usermod -aG docker $USER`
-- Add domain to hosts file: `echo "127.0.0.1 nova.42.fr" | sudo tee -a /etc/hosts`
+- Add domain to hosts file: `echo "127.0.0.1 oayyoub.42.fr" | sudo tee -a /etc/hosts`
 
 ### Build and Run
 ```bash
@@ -162,8 +162,8 @@ make
 ```
 
 ### Access
-- Website: https://nova.42.fr
-- Admin panel: https://nova.42.fr/wp-admin
+- Website: https://oayyoub.42.fr
+- Admin panel: https://oayyoub.42.fr/wp-admin
 - Admin credentials: `boss` / (password in `secrets/credentials.txt`)
 
 ### Stop
@@ -190,9 +190,9 @@ make re
 | Only port 443 exposed | Only nginx exposes a port |
 | TLSv1.2 or TLSv1.3 only | Set in nginx config `ssl_protocols TLSv1.3` |
 | Admin username can't contain "admin" | Admin is `boss` |
-| Two WordPress users | `boss` (admin) + `nova` (subscriber) |
+| Two WordPress users | `boss` (admin) + `oayyoub` (subscriber) |
 | Restart on crash | `restart: unless-stopped` in docker-compose |
-| Domain name = login.42.fr | `nova.42.fr` → `127.0.0.1` in `/etc/hosts` |
+| Domain name = login.42.fr | `oayyoub.42.fr` → `127.0.0.1` in `/etc/hosts` |
 
 ---
 
@@ -203,13 +203,13 @@ make re
 docker ps
 
 # Test HTTPS
-curl -k https://nova.42.fr
+curl -k https://oayyoub.42.fr
 
 # Check database has 2 users
-docker exec mariadb mysql -u nova -p'<password>' wordpress -e "SELECT * FROM wp_users;"
+docker exec mariadb mysql -u oayyoub -p'<password>' wordpress -e "SELECT * FROM wp_users;"
 
 # Check TLS version
-echo | openssl s_client -connect nova.42.fr:443 2>/dev/null | grep Protocol
+echo | openssl s_client -connect oayyoub.42.fr:443 2>/dev/null | grep Protocol
 ```
 
 ---
@@ -236,4 +236,4 @@ echo | openssl s_client -connect nova.42.fr:443 2>/dev/null | grep Protocol
 
 ### Docker Volumes vs Bind Mounts
 - **Volumes** are managed by Docker, portable, and recommended for persistent data.
-- **Bind mounts** map a specific host path to a container path — used here for `/home/nova/data/` to meet the subject requirements.
+- **Bind mounts** map a specific host path to a container path — used here for `/home/oayyoub/data/` to meet the subject requirements.

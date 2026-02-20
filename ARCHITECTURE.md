@@ -6,33 +6,33 @@
 
 ```
 ╔══════════════════════════════════════════════════════════════════════════════╗
-║                           HOST MACHINE (Linux/WSL)                         ║
-║                                                                            ║
-║   /etc/hosts: 127.0.0.1 nova.42.fr                                        ║
-║                                                                            ║
-║   ┌──────────────────────────────────────────────────────────────────┐      ║
-║   │                    DOCKER ENGINE                                 │      ║
-║   │                                                                  │      ║
-║   │   ┌──────────────────────────────────────────────────────────┐   │      ║
-║   │   │              NETWORK: inception (bridge)                 │   │      ║
-║   │   │                                                          │   │      ║
-║   │   │  ┌──────────────┐  ┌──────────────┐  ┌──────────────┐  │   │      ║
-║   │   │  │    NGINX     │  │  WORDPRESS   │  │   MARIADB    │  │   │      ║
-║   │   │  │              │  │              │  │              │  │   │      ║
-║   │   │  │  Port 443    │  │  Port 9000   │  │  Port 3306   │  │   │      ║
-║   │   │  │  (exposed)   │  │  (internal)  │  │  (internal)  │  │   │      ║
-║   │   │  └──────────────┘  └──────────────┘  └──────────────┘  │   │      ║
-║   │   │                                                          │   │      ║
-║   │   └──────────────────────────────────────────────────────────┘   │      ║
-║   │                                                                  │      ║
-║   │   VOLUMES:                                                       │      ║
-║   │   ┌────────────────────────┐  ┌────────────────────────┐        │      ║
-║   │   │ wp: WordPress files   │  │ db: Database files     │        │      ║
-║   │   │ /home/nova/data/      │  │ /home/nova/data/       │        │      ║
-║   │   │         wordpress     │  │         mariadb        │        │      ║
-║   │   └────────────────────────┘  └────────────────────────┘        │      ║
-║   │                                                                  │      ║
-║   └──────────────────────────────────────────────────────────────────┘      ║
+║                           HOST MACHINE (Linux/WSL)                           ║
+║                                                                              ║
+║   /etc/hosts: 127.0.0.1 oayyoub.42.fr                                        ║
+║                                                                              ║
+║   ┌──────────────────────────────────────────────────────────────────┐       ║
+║   │                    DOCKER ENGINE                                 │       ║
+║   │                                                                  │       ║
+║   │   ┌──────────────────────────────────────────────────────────┐   │       ║
+║   │   │              NETWORK: inception (bridge)                 │   │       ║
+║   │   │                                                          │   │       ║
+║   │   │  ┌──────────────┐  ┌──────────────┐  ┌──────────────┐    │   │       ║
+║   │   │  │    NGINX     │  │  WORDPRESS   │  │   MARIADB    │    │   │       ║
+║   │   │  │              │  │              │  │              │    │   │       ║
+║   │   │  │  Port 443    │  │  Port 9000   │  │  Port 3306   │    │   │       ║
+║   │   │  │  (exposed)   │  │  (internal)  │  │  (internal)  │    │   │       ║
+║   │   │  └──────────────┘  └──────────────┘  └──────────────┘    │   │       ║
+║   │   │                                                          │   │       ║
+║   │   └──────────────────────────────────────────────────────────┘   │       ║
+║   │                                                                  │       ║
+║   │   VOLUMES:                                                       │       ║
+║   │   ┌────────────────────────┐  ┌────────────────────────┐         │       ║
+║   │   │ wp: WordPress files    │  │ db: Database files     │         │       ║
+║   │   │ /home/oayyoub/data/    │  │ /home/oayyoub/data/    │         │       ║
+║   │   │         wordpress      │  │         mariadb        │         │       ║
+║   │   └────────────────────────┘  └────────────────────────┘         │       ║
+║   │                                                                  │       ║
+║   └──────────────────────────────────────────────────────────────────┘       ║
 ╚══════════════════════════════════════════════════════════════════════════════╝
 ```
 
@@ -88,12 +88,12 @@ Browser                NGINX               WordPress            MariaDB
 
 ```
 ╔══════════════════════════════════════════════════════════════════════╗
-║ STEP 1: Browser → NGINX (REQUEST)                                   ║
+║ STEP 1: Browser → NGINX (REQUEST)                                    ║
 ║                                                                      ║
-║   Protocol: HTTPS (TLSv1.2 or TLSv1.3)                              ║
+║   Protocol: HTTPS (TLSv1.2 or TLSv1.3)                               ║
 ║   Port:     443                                                      ║
-║   Data:     GET / HTTP/1.1  Host: nova.42.fr                         ║
-║   Flow:     Browser ═══encrypted═══▶ NGINX                          ║
+║   Data:     GET / HTTP/1.1  Host: oayyoub.42.fr                      ║
+║   Flow:     Browser ═══encrypted═══▶ NGINX                           ║
 ║                                                                      ║
 ║   NGINX decrypts the TLS → reads the HTTP request                    ║
 ║   Sees: request is for index.php → must forward to PHP-FPM           ║
@@ -101,7 +101,7 @@ Browser                NGINX               WordPress            MariaDB
                               │
                               ▼
 ╔══════════════════════════════════════════════════════════════════════╗
-║ STEP 2: NGINX → WordPress (REQUEST)                                 ║
+║ STEP 2: NGINX → WordPress (REQUEST)                                  ║
 ║                                                                      ║
 ║   Protocol: FastCGI                                                  ║
 ║   Port:     9000                                                     ║
@@ -116,12 +116,12 @@ Browser                NGINX               WordPress            MariaDB
                               │
                               ▼
 ╔══════════════════════════════════════════════════════════════════════╗
-║ STEP 3: WordPress → MariaDB (REQUEST)                               ║
+║ STEP 3: WordPress → MariaDB (REQUEST)                                ║
 ║                                                                      ║
 ║   Protocol: MySQL                                                    ║
 ║   Port:     3306                                                     ║
 ║   Data:     SELECT * FROM wp_posts WHERE post_status='publish'       ║
-║   Auth:     user=nova, pass=(from /run/secrets/db_password)          ║
+║   Auth:     user=oayyoub, pass=(from /run/secrets/db_password)       ║
 ║   Flow:     WordPress ───MySQL protocol───▶ mariadb:3306             ║
 ║                                                                      ║
 ║   MariaDB receives the SQL query                                     ║
@@ -131,7 +131,7 @@ Browser                NGINX               WordPress            MariaDB
                               │
                               ▼
 ╔══════════════════════════════════════════════════════════════════════╗
-║ STEP 4: MariaDB → WordPress (RESPONSE)                              ║
+║ STEP 4: MariaDB → WordPress (RESPONSE)                               ║
 ║                                                                      ║
 ║   Protocol: MySQL                                                    ║
 ║   Port:     3306 (same connection, reverse direction)                ║
@@ -145,7 +145,7 @@ Browser                NGINX               WordPress            MariaDB
                               │
                               ▼
 ╔══════════════════════════════════════════════════════════════════════╗
-║ STEP 5: WordPress → NGINX (RESPONSE)                                ║
+║ STEP 5: WordPress → NGINX (RESPONSE)                                 ║
 ║                                                                      ║
 ║   Protocol: FastCGI                                                  ║
 ║   Port:     9000 (same connection, reverse direction)                ║
@@ -160,16 +160,16 @@ Browser                NGINX               WordPress            MariaDB
                               │
                               ▼
 ╔══════════════════════════════════════════════════════════════════════╗
-║ STEP 6: NGINX → Browser (RESPONSE)                                  ║
+║ STEP 6: NGINX → Browser (RESPONSE)                                   ║
 ║                                                                      ║
-║   Protocol: HTTPS (TLSv1.2 or TLSv1.3)                              ║
+║   Protocol: HTTPS (TLSv1.2 or TLSv1.3)                               ║
 ║   Port:     443 (same connection, reverse direction)                 ║
 ║   Data:     Encrypted HTML page                                      ║
-║   Flow:     NGINX ═══encrypted═══▶ Browser                          ║
+║   Flow:     NGINX ═══encrypted═══▶ Browser                           ║
 ║                                                                      ║
 ║   Browser decrypts the TLS                                           ║
 ║   Renders the HTML page                                              ║
-║   Page displayed ✅                                                   ║
+║   Page displayed ✅                                                  ║
 ╚══════════════════════════════════════════════════════════════════════╝
 ```
 
@@ -178,18 +178,18 @@ Browser                NGINX               WordPress            MariaDB
 ## 4. Static Files — Different Flow (No PHP, No Database)
 
 ```
-Browser requests: https://nova.42.fr/wp-content/themes/style.css
+Browser requests: https://oayyoub.42.fr/wp-content/themes/style.css
 
 ╔══════════════════════════════════════════════════════════════════════╗
-║ REQUEST:  Browser ═══HTTPS (443)═══▶ NGINX                         ║
+║ REQUEST:  Browser ═══HTTPS (443)═══▶ NGINX                           ║
 ║                                                                      ║
 ║   NGINX checks: is style.css a .php file?                            ║
 ║   NO → serve it directly from /var/www/html/ (shared volume)         ║
 ║   No PHP-FPM needed, no database needed                              ║
 ║                                                                      ║
-║ RESPONSE: NGINX ═══HTTPS (443)═══▶ Browser                          ║
+║ RESPONSE: NGINX ═══HTTPS (443)═══▶ Browser                           ║
 ║                                                                      ║
-║   Only 2 steps instead of 6 → much faster                           ║
+║   Only 2 steps instead of 6 → much faster                            ║
 ╚══════════════════════════════════════════════════════════════════════╝
 
   Browser ◀══port 443══▶ NGINX ──reads──▶ /var/www/html/style.css
@@ -210,27 +210,27 @@ Browser requests: https://nova.42.fr/wp-content/themes/style.css
 │         │                                                               │
 │         │ port 443 (ONLY open port)                                     │
 │         │                                                               │
-│    ═════╪═══════════════════════════════════════════════════════════     │
+│    ═════╪═══════════════════════════════════════════════════════════    │
 │         │         DOCKER NETWORK: inception                             │
 │         │                                                               │
 │         ▼                                                               │
-│    ┌─────────┐         ┌───────────┐          ┌──────────┐             │
-│    │  NGINX  │         │ WORDPRESS │          │ MARIADB  │             │
-│    │         │         │           │          │          │             │
-│    │ :443 ◄──┼── TLS ──┼── :443   │          │          │             │
-│    │         │         │           │          │          │             │
-│    │    ─────┼─────────┼▶ :9000   │          │          │             │
-│    │    REQ  │ FastCGI │  PHP-FPM  │          │          │             │
-│    │    ◀────┼─────────┼─ :9000   │          │          │             │
-│    │    RESP │ FastCGI │           │          │          │             │
-│    │         │         │     ──────┼──────────┼▶ :3306  │             │
-│    │         │         │     REQ   │  MySQL   │  mysqld  │             │
-│    │         │         │     ◀─────┼──────────┼─ :3306  │             │
-│    │         │         │     RESP  │  MySQL   │          │             │
-│    │         │         │           │          │          │             │
-│    └─────────┘         └───────────┘          └──────────┘             │
+│    ┌─────────┐         ┌───────────┐          ┌──────────┐              │
+│    │  NGINX  │         │ WORDPRESS │          │ MARIADB  │              │
+│    │         │         │           │          │          │              │
+│    │ :443 ◄──┼── TLS ──┼── :443   │          │          │               │
+│    │         │         │           │          │          │              │
+│    │    ─────┼─────────┼▶ :9000   │          │          │               │
+│    │    REQ  │ FastCGI │  PHP-FPM  │          │          │              │
+│    │    ◀────┼─────────┼─ :9000   │          │          │               │
+│    │    RESP │ FastCGI │           │          │          │              │
+│    │         │         │     ──────┼──────────┼▶ :3306  │               │
+│    │         │         │     REQ   │  MySQL   │  mysqld  │              │
+│    │         │         │     ◀─────┼──────────┼─ :3306  │               │
+│    │         │         │     RESP  │  MySQL   │          │              │
+│    │         │         │           │          │          │              │
+│    └─────────┘         └───────────┘          └──────────┘              │
 │                                                                         │
-│    ═════════════════════════════════════════════════════════════════     │
+│    ═════════════════════════════════════════════════════════════════    │
 │                                                                         │
 │    CLOSED PORTS:                                                        │
 │      9000 → NOT accessible from outside (expose only)                   │
@@ -249,7 +249,7 @@ Browser requests: https://nova.42.fr/wp-content/themes/style.css
 ╠═══════════╬══════╬════════════════╬═══════════════════════════════════════╣
 ║           ║      ║                ║                                       ║
 ║ 443       ║ports ║ HTTPS          ║ REQUEST:  encrypted HTTP request      ║
-║           ║      ║ (TLS 1.2/1.3) ║ RESPONSE: encrypted HTML/CSS/JS/IMG   ║
+║           ║      ║ (TLS 1.2/1.3)  ║ RESPONSE: encrypted HTML/CSS/JS/IMG    ║
 ║           ║      ║                ║                                       ║
 ╠═══════════╬══════╬════════════════╬═══════════════════════════════════════╣
 ║           ║      ║                ║                                       ║
@@ -269,7 +269,7 @@ Browser requests: https://nova.42.fr/wp-content/themes/style.css
 ## 7. Volume Sharing
 
 ```
-/home/nova/data/wordpress (HOST)
+/home/oayyoub/data/wordpress (HOST)
          │
          │  bind mount
          │
@@ -281,8 +281,8 @@ Browser requests: https://nova.42.fr/wp-content/themes/style.css
 │                     │                │                     │
 │  /var/www/html/     │                │  /var/www/html/     │
 │  ├── index.php      │                │  ├── index.php      │
-│  ├── style.css  ◄───── serves       │  ├── style.css      │
-│  ├── image.png  ◄───── static       │  ├── image.png      │
+│  ├── style.css  ◄───── serves        │  ├── style.css      │
+│  ├── image.png  ◄───── static        │  ├── image.png      │
 │  ├── wp-admin/      │   files        │  ├── wp-admin/      │
 │  └── wp-content/    │                │  └── wp-content/    │
 │       READS ONLY    │                │    READS + WRITES   │
@@ -291,7 +291,7 @@ Browser requests: https://nova.42.fr/wp-content/themes/style.css
 SAME FILES — both containers see the same directory
 
 
-/home/nova/data/mariadb (HOST)
+/home/oayyoub/data/mariadb (HOST)
          │
          │  bind mount
          │
@@ -313,7 +313,7 @@ SAME FILES — both containers see the same directory
 ## 8. Secrets Flow
 
 ```
-HOST: /home/nova/inception/secrets/
+HOST: /home/oayyoub/inception/secrets/
 ├── credentials.txt        "boss12345"
 ├── db_password.txt        "db_pass123"
 └── db_root_password.txt   "root_pass123"
@@ -426,11 +426,11 @@ Container stopped manually (docker stop / make down)
 ╚═══════════╩════════════════════╩════════╩════════════════════╩═════════════════╝
 
 ╔═══════════╦══════════════════════════╦════════════════════════════════════════╗
-║ Container ║ Secrets                  ║ Env Vars                             ║
+║ Container ║ Secrets                  ║ Env Vars                               ║
 ╠═══════════╬══════════════════════════╬════════════════════════════════════════╣
-║ nginx     ║ (none)                   ║ (none)                               ║
-║ wordpress ║ credentials, db_password ║ DOMAIN_NAME, MYSQL_*, WP_*           ║
-║ mariadb   ║ db_password,             ║ MYSQL_DATABASE, MYSQL_USER           ║
-║           ║ db_root_password         ║                                      ║
+║ nginx     ║ (none)                   ║ (none)                                 ║
+║ wordpress ║ credentials, db_password ║ DOMAIN_NAME, MYSQL_*, WP_*             ║
+║ mariadb   ║ db_password,             ║ MYSQL_DATABASE, MYSQL_USER             ║
+║           ║ db_root_password         ║                                        ║
 ╚═══════════╩══════════════════════════╩════════════════════════════════════════╝
 ```

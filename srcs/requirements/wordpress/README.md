@@ -231,7 +231,7 @@ Container starts
     │         - Create database tables
     │         - Set site title and URL
     │         - Create admin user "boss"
-    │         - Create regular user "nova" (author role)
+    │         - Create regular user "oayyoub" (author role)
     │
     ├── YES → Skip installation
     │
@@ -253,7 +253,7 @@ Downloads WordPress core files from wordpress.org into the current directory.
 Creates database tables and sets up the site:
 ```bash
 wp core install \
-    --url="https://nova.42.fr" \      # Site URL
+    --url="https://oayyoub.42.fr" \      # Site URL
     --title="inception" \              # Site name
     --admin_user="boss" \              # Admin username
     --admin_password="boss12345" \     # From secrets file
@@ -266,8 +266,8 @@ wp core install \
 Creates additional users:
 ```bash
 wp user create \
-    "nova" \                           # Username
-    "nova@42.fr" \                     # Email
+    "oayyoub" \                           # Username
+    "oayyoub@42.fr" \                     # Email
     --role=author \                    # Permission level
     --user_pass="boss12345" \          # Password
     --allow-root
@@ -310,7 +310,7 @@ require_once ABSPATH . 'wp-settings.php';
 | Setting | Value | Source |
 |---------|-------|--------|
 | `DB_NAME` | `wordpress` | Environment variable (docker-compose) |
-| `DB_USER` | `nova` | Environment variable (docker-compose) |
+| `DB_USER` | `oayyoub` | Environment variable (docker-compose) |
 | `DB_PASSWORD` | `db_pass123` | Secret file (Docker secrets) |
 | `DB_HOST` | `mariadb` | Docker service name (resolved via DNS) |
 | `ABSPATH` | `/var/www/html/` | Where WordPress files live |
@@ -327,7 +327,7 @@ Docker DNS resolves 'mariadb' → 172.18.0.2 (container IP)
 PHP connects to 172.18.0.2:3306
     │
     ▼
-MariaDB authenticates user 'nova' with password 'db_pass123'
+MariaDB authenticates user 'oayyoub' with password 'db_pass123'
     │
     ▼
 WordPress reads/writes the 'wordpress' database
@@ -341,7 +341,7 @@ WordPress reads/writes the 'wordpress' database
 Container: /var/www/html/
     │ (docker volume bind mount)
     ▼
-Host: /home/nova/data/wordpress
+Host: /home/oayyoub/data/wordpress
     ├── wp-config.php
     ├── wp-admin/
     ├── wp-content/
