@@ -64,7 +64,6 @@ RUN apt-get update && apt-get install -y \
     rm -rf /var/lib/apt/lists/*
 
 COPY ./conf/www.conf /tmp/www.conf
-COPY ./tools/wp-config.php /tmp/wp-config.php
 COPY ./tools/wordpress_start.sh /usr/local/bin/
 
 RUN chmod +x /usr/local/bin/wordpress_start.sh
@@ -80,7 +79,6 @@ CMD ["/usr/sbin/php-fpm7.4", "--nodaemonize"]
 | `php7.4-mysql` | PHP extension to connect to MariaDB |
 | `wget` | Tool to download WP-CLI and WordPress |
 | `COPY www.conf /tmp/` | PHP-FPM pool config (copied to final location by startup script) |
-| `COPY wp-config.php /tmp/` | WordPress database config |
 | `--nodaemonize` | Run in foreground (required for Docker) |
 
 ### Why /tmp/?
@@ -171,8 +169,8 @@ if [ ! -f wp-load.php ]; then
     wp core download --allow-root
 fi
 
-# Copy config
-cp /tmp/wp-config.php /var/www/html/wp-config.php
+# Generate config
+wp config create --allow-root ...
 
 # Read secrets
 WP_ADMIN_PASS=$(cat /run/secrets/credentials)

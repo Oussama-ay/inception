@@ -6,7 +6,6 @@ RUN apt-get update && \
 
 COPY ./conf/www.conf /etc/php/7.4/fpm/pool.d/www.conf
 COPY ./tools/wordpress_start.sh /usr/local/bin/
-COPY ./tools/wp-config.php /tmp/wp-config.php
 
 RUN chmod +x /usr/local/bin/wordpress_start.sh && \
     mkdir -p /run/php
