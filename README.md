@@ -67,7 +67,7 @@ Add the project domain to your host file:
 
 ### Build and Start
 From repository root:
-- make secretfiles
+- make testfiles
 - make
 
 What this does:
@@ -99,6 +99,5 @@ What this does:
 AI assistance was used as a documentation helper for:
 - Structuring README sections to match validation requirements
 - Rewording operational instructions for clarity
-- Drafting comparison explanations (VM vs Docker, secrets vs env vars, etc.)
 
 AI was not used to run containers, generate runtime outputs, or replace manual verification of the stack behavior.

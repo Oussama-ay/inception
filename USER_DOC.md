@@ -13,7 +13,7 @@ Traffic flow:
 
 ## Start and Stop the Project
 From the repository root:
-- Create/update local secret files: make secretfiles
+- Create/update local secret files: make testfiles
 - Build and start all services: make
 - Stop all services: make down
 

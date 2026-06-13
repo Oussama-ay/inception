@@ -16,7 +16,7 @@ Already present in the repository:
 
 ### Secrets Setup
 Generate default secret values:
-- make secretfiles
+- make testfiles
 
 Or manually create:
 - secrets/db_password.txt
