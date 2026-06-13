@@ -2,7 +2,7 @@ all:
 	@sudo mkdir -p /home/$(USER)/data/wordpress /home/$(USER)/data/mariadb
 	@sudo docker compose -f ./srcs/docker-compose.yml up -d --build
 
-secretfiles:
+testfiles:
 	@echo db_pass123 > secrets/db_password.txt
 	@echo root_pass123 > secrets/db_root_password.txt
 	@echo boss12345 > secrets/credentials.txt
